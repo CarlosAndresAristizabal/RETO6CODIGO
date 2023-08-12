@@ -28,7 +28,7 @@ const datosSchema = mongoose.Schema({
         comment: { type: String },
     } ]
 });
-const datosModel = mongoose.model('comentarios', datosSchema)
+const datosModel = mongoose.model('lugares', datosSchema)
 
 // Mostrar
 const mostrar = async () => {
