@@ -22,7 +22,11 @@ mongoose.connect(url, {
 const datosSchema = mongoose.Schema({
     address: {
         building: { type: String },
-        coord: { type: [ String ] },
+        type: {
+            type: String,
+            enum: [ 'Point' ],
+        },
+        coord: { type: [ Number ] },
         street: { type: String },
         zipcode: { type: String }
     },
@@ -37,6 +41,7 @@ const datosSchema = mongoose.Schema({
         comment: { type: String },
     } ],
     name: { type: String, required: true },
+    restaurant_id: { type: Number, required: true }
 }, { versionKey: false });
 //Incorporar schema al modelo
 const datosModel = mongoose.model('lugares', datosSchema);
@@ -49,11 +54,11 @@ app.listen(3000, () => {
 
 
 // Mostrar
-// const mostrar = async () => {
-//     const restaurante = await datosModel.find()
-//     console.log(restaurante);
-// }
-// mostrar()
+const mostrar = async () => {
+    const restaurante = await datosModel.find()
+    console.log(restaurante);
+}
+mostrar()
 
 /*********************************** */
 //Crear
@@ -61,21 +66,22 @@ app.listen(3000, () => {
 //     const datos = new datosModel({
 //         address: {
 //             building: 'calle',
-//             coord: [ '2153, 2135431' ],
+//             coord: [ 10.42153, 5.2135431 ],
 //             street: 'caciques',
 //             zipcode: '200014',
 //         },
 //         borough: 'valledupar',
-//         cuisine: 'comida rapida',
+//         cuisine: 'flaca',
 //         grades: {
-//             // date: ,
-//             score: 4,
+//             date: new Date(),
+//             score: 5,
 //         },
 //         comments: {
-//             // date: ,
-//             comment: 'comidd sabarosa',
+//             date: new Date(),
+//             comment: 'comida sabarosa para adelgazar',
 //         },
-//         name: 'calle de mama',
+//         name: 'Frutas',
+//         restaurant_id: 154325
 //     })
 //     const datosNuevos = await datos.save()
 //     console.log(datosNuevos);
@@ -91,6 +97,26 @@ app.listen(3000, () => {
 //     console.log(restaurante);
 // }
 // mostrarNombre()
+/**************************************** */
+// filtro de cercania segun locaclizacion
+const buscarLocalizacion = async () => {
+    const cercania = await datosModel.find({
+        "address.coord": {
+            $geoWithin: {
+                $centerSphere: {
+                    type: 'Point',
+                    coord: [
+                        0, 40 ]
+                },
+                $maxDistance: 5000
+            }
+        }
+    })
+    console.log(cercania);
+}
+buscarLocalizacion()
+/*************** */
+//crear indexes de localizacion
 
 /*********************************** */
 //ACTUALIZAR
@@ -100,20 +126,12 @@ app.listen(3000, () => {
 //             $set: {
 //                 address: {
 //                     building: 'calle',
-//                     coord: [ '2153, 2135431' ],
+//                     coord: [ 2153, 2135431 ],
 //                     street: 'caciques',
 //                     zipcode: '200014',
 //                 },
 //                 borough: 'Valledupar - Cesar',
-//                 cuisine: 'comida rapida',
-//                 grades: {
-//                     // date: ,
-//                     score: 4,
-//                 },
-//                 comments: {
-//                     // date: ,
-//                     comment: 'sabroso',
-//                 },
+//                 cuisine: 'comida rapida',              
 //                 name: 'calle de mama',
 //             }
 //         })
