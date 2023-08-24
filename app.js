@@ -41,7 +41,94 @@ const datosSchema = mongoose.Schema({
 //Incorporar schema al modelo
 const datosModel = mongoose.model('lugares', datosSchema);
 
+//Creación del servidor express
+app.listen(3000, () => {
+    console.log('servidor listo...');
+});
 
+
+
+// Mostrar
+// const mostrar = async () => {
+//     const restaurante = await datosModel.find()
+//     console.log(restaurante);
+// }
+// mostrar()
+
+/*********************************** */
+//Crear
+// const insertar = async () => {
+//     const datos = new datosModel({
+//         address: {
+//             building: 'calle',
+//             coord: [ '2153, 2135431' ],
+//             street: 'caciques',
+//             zipcode: '200014',
+//         },
+//         borough: 'valledupar',
+//         cuisine: 'comida rapida',
+//         grades: {
+//             // date: ,
+//             score: 4,
+//         },
+//         comments: {
+//             // date: ,
+//             comment: 'comidd sabarosa',
+//         },
+//         name: 'calle de mama',
+//     })
+//     const datosNuevos = await datos.save()
+//     console.log(datosNuevos);
+// }
+// insertar()
+
+/*********************************** */
+//Mostrar filtro por nombre
+// const mostrarNombre = async () => {
+//     const restaurante = await datosModel.find({
+//         name: 'Brunos On The Boulevard'
+//     }, { _id: true, cuisine: true, restaurant_id: true, 'address.street': true });
+//     console.log(restaurante);
+// }
+// mostrarNombre()
+
+/*********************************** */
+//ACTUALIZAR
+// const actualizarDatos = async (id) => {
+//     const datosActual = await datosModel.updateOne({ _id: id },
+//         {
+//             $set: {
+//                 address: {
+//                     building: 'calle',
+//                     coord: [ '2153, 2135431' ],
+//                     street: 'caciques',
+//                     zipcode: '200014',
+//                 },
+//                 borough: 'Valledupar - Cesar',
+//                 cuisine: 'comida rapida',
+//                 grades: {
+//                     // date: ,
+//                     score: 4,
+//                 },
+//                 comments: {
+//                     // date: ,
+//                     comment: 'sabroso',
+//                 },
+//                 name: 'calle de mama',
+//             }
+//         })
+//     console.log(datosActual);
+// }
+
+// actualizarDatos('64df8bd37713aa0bc02ebaec')
+
+/*********************************** */
+//Eliminar
+// const eliminarDatos = async (id) => {
+//     const datosEliminar = await datosModel.deleteOne({ _id: id })
+//     console.log(datosEliminar);
+// }
+// eliminarDatos('64df8bd37713aa0bc02ebaec')
 
 app.post('/add', (req, res) => {
 
@@ -79,89 +166,3 @@ app.get('/consultaTodaDB', (req, res) => {
         console.log('Error al consultar elementos...', err.message); res.json({ response: 'falla' })
     })
 })
-
-
-
-
-//Creación del servidor express
-app.listen(3000, () => {
-    console.log('servidor listo...');
-});
-
-
-
-// Mostrar
-// const mostrar = async () => {
-//     const restaurante = await datosModel.find()
-//     console.log(restaurante);
-// }
-
-// mostrar()
-//Crear
-// const insertar = async () => {
-//     const datos = new datosModel({
-//         address: {
-//             building: 'calle',
-//             coord: [ '2153, 2135431' ],
-//             street: 'caciques',
-//             zipcode: '200014',
-//         },
-//         borough: 'valledupar',
-//         cuisine: 'comida rapida',
-//         grades: {
-//             // date: ,
-//             score: 4,
-//         },
-//         comments: {
-//             // date: ,
-//             comment: 'comidd sabarosa',
-//         },
-//         name: 'calle de mama',
-//     })
-//     const datosNuevos = await datos.save()
-//     console.log(datosNuevos);
-// }
-// insertar()
-//Mostrar filtro por nombre
-// const mostrarNombre = async () => {
-//     const restaurante = await datosModel.find({
-//         name: 'Brunos On The Boulevard'
-//     }, { _id: true, cuisine: true, restaurant_id: true, 'address.street': true });
-//     console.log(restaurante);
-// }
-// mostrarNombre()
-//ACTUALIZAR
-// const actualizarDatos = async (id) => {
-//     const datosActual = await datosModel.updateOne({ _id: id },
-//         {
-//             $set: {
-//                 address: {
-//                     building: 'calle',
-//                     coord: [ '2153, 2135431' ],
-//                     street: 'caciques',
-//                     zipcode: '200014',
-//                 },
-//                 borough: 'Valledupar - Cesar',
-//                 cuisine: 'comida rapida',
-//                 grades: {
-//                     // date: ,
-//                     score: 4,
-//                 },
-//                 comments: {
-//                     // date: ,
-//                     comment: 'sabroso',
-//                 },
-//                 name: 'calle de mama',
-//             }
-//         })
-//     console.log(datosActual);
-// }
-
-// actualizarDatos('64df8bd37713aa0bc02ebaec')
-//Eliminar
-const eliminarDatos = async (id) => {
-    const datosEliminar = await datosModel.deleteOne({ _id: id })
-    console.log(datosEliminar);
-}
-
-eliminarDatos('64df8bd37713aa0bc02ebaec')
