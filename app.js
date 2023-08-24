@@ -120,8 +120,43 @@ app.listen(3000, () => {
 //     console.log(datosActual);
 // }
 
-// actualizarDatos('64df8bd37713aa0bc02ebaec')
+// actualizarDatos('64df8a0f71d93605bdcea895')
+/*********************************** */
+//Insertar comentarios
+// const comentarios = async (id) => {
+//     const datosActual = await datosModel.updateOne(
+//         { _id: id },
+//         {
+//             $push: {
+//                 comments: {
+//                     date: new Date(),
+//                     comment: 'sabrosa la comida',
+//                 },
+//             }
+//         }
+//     )
+//     console.log(datosActual);
+// }
 
+// comentarios('64df8a0f71d93605bdcea895')
+/*********************************** */
+//añadir puntaje segun id
+// const puntaje = async (id) => {
+//     const datosActual = await datosModel.updateOne(
+//         { _id: id },
+//         {
+//             $push: {
+//                 grades: {
+//                     date: new Date(),
+//                     score: 5,
+//                 }
+//             }
+//         }
+//     )
+//     console.log(datosActual);
+// }
+
+// puntaje('64df8a0f71d93605bdcea895')
 /*********************************** */
 //Eliminar
 // const eliminarDatos = async (id) => {
