@@ -54,34 +54,34 @@ app.listen(3000, () => {
 
 
 // Mostrar
-const mostrar = async () => {
-    const restaurante = await datosModel.find()
-    console.log(restaurante);
-}
-mostrar()
+// const mostrar = async () => {
+//     const restaurante = await datosModel.find()
+//     console.log(restaurante);
+// }
+// mostrar()
 
 /*********************************** */
 //Crear
 // const insertar = async () => {
 //     const datos = new datosModel({
 //         address: {
-//             building: 'calle',
-//             coord: [ 10.42153, 5.2135431 ],
-//             street: 'caciques',
-//             zipcode: '200014',
+//             building: 'avenida',
+//             coord: [ 40.42153, 45.35431 ],
+//             street: 'los cocos',
+//             zipcode: '200001',
 //         },
 //         borough: 'valledupar',
-//         cuisine: 'flaca',
+//         cuisine: 'callerapid',
 //         grades: {
 //             date: new Date(),
-//             score: 5,
+//             score: 3,
 //         },
 //         comments: {
 //             date: new Date(),
-//             comment: 'comida sabarosa para adelgazar',
+//             comment: 'comida sabarosa para morir',
 //         },
-//         name: 'Frutas',
-//         restaurant_id: 154325
+//         name: 'comidas jj',
+//         restaurant_id: 1542545
 //     })
 //     const datosNuevos = await datos.save()
 //     console.log(datosNuevos);
@@ -97,27 +97,46 @@ mostrar()
 //     console.log(restaurante);
 // }
 // mostrarNombre()
+/*********************************** */
+//Mostrar filtro por cocina
+// const mostrarCocina = async () => {
+//     const restaurante = await datosModel.find({
+//         cuisine: 'flaca'
+//     }, { _id: true, cuisine: true, restaurant_id: true, 'address.street': true });
+//     console.log(restaurante);
+// }
+// mostrarCocina()
 /**************************************** */
 // filtro de cercania segun locaclizacion
-const buscarLocalizacion = async () => {
-    const cercania = await datosModel.find({
-        "address.coord": {
-            $geoWithin: {
-                $centerSphere: {
-                    type: 'Point',
-                    coord: [
-                        0, 40 ]
-                },
-                $maxDistance: 5000
-            }
-        }
-    })
-    console.log(cercania);
-}
-buscarLocalizacion()
-/*************** */
-//crear indexes de localizacion
+// const buscarLocalizacion = async () => {
+//     const cercania = await datosModel.find({
+//         "address.coord": {
+//             $geoWithin: {
+//                 $centerSphere: {
+//                     type: 'Point',
+//                     coord: [
+//                         0, 40 ]
+//                 },
+//                 $maxDistance: 5000
+//             }
+//         }
+//     })
+//     console.log(cercania);
+// }
+// buscarLocalizacion()
+/******************************/
+//Filtro de ordenamiento por ranking
+// const ordenar = async () => {
+//     const orden = await datosModel.find({
 
+//     }, {
+//         'grades.score': true, _id: true, name: true
+//     }).sort({
+//         score: 1,
+//     })
+//     console.log(orden)
+// }
+// ordenar()
 /*********************************** */
 //ACTUALIZAR
 // const actualizarDatos = async (id) => {
