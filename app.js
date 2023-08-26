@@ -203,7 +203,8 @@ app.listen(3000, () => {
 //    console.log('Los datos eliminados');
 // }
 // eliminarDatos('64df8bd37713aa0bc02ebaec')
-
+/******************************************* */
+// FRONTEND
 app.post('/add', (req, res) => {
 
     const restaurante = new datosModel({
