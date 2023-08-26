@@ -85,6 +85,7 @@ app.listen(3000, () => {
 //     })
 //     const datosNuevos = await datos.save()
 //     console.log(datosNuevos);
+//     console.log('Los datos insertados correctamente');
 // }
 // insertar()
 
@@ -150,13 +151,13 @@ app.listen(3000, () => {
 //                     zipcode: '200014',
 //                 },
 //                 borough: 'Valledupar - Cesar',
-//                 cuisine: 'comida rapida',              
+//                 cuisine: 'comida rapida',
 //                 name: 'calle de mama',
 //             }
 //         })
 //     console.log(datosActual);
+//     console.log('Los datos estan actualizados');
 // }
-
 // actualizarDatos('64df8a0f71d93605bdcea895')
 /*********************************** */
 //Insertar comentarios
@@ -173,8 +174,8 @@ app.listen(3000, () => {
 //         }
 //     )
 //     console.log(datosActual);
+//     console.log('El comentario insertado');
 // }
-
 // comentarios('64df8a0f71d93605bdcea895')
 /*********************************** */
 //añadir puntaje segun id
@@ -191,14 +192,15 @@ app.listen(3000, () => {
 //         }
 //     )
 //     console.log(datosActual);
+//     console.log('La calificación insertada');
 // }
-
 // puntaje('64df8a0f71d93605bdcea895')
 /*********************************** */
 //Eliminar
 // const eliminarDatos = async (id) => {
 //     const datosEliminar = await datosModel.deleteOne({ _id: id })
 //     console.log(datosEliminar);
+//    console.log('Los datos eliminados');
 // }
 // eliminarDatos('64df8bd37713aa0bc02ebaec')
 
