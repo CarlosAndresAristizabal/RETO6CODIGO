@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { ObjectId } = require('mongodb');
+
 
 //Creacion  del schema de la DB
 module.exports = mongoose => {
