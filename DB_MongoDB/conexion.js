@@ -1,3 +1,7 @@
+const uri ='mongodb://localhost' ;
+const puerto = 27017;
+const nameBaseDatos = 'restaurantes';
+
 module.exports = {
-    url: 'mongodb://localhost:27017/restaurantes'
+    url: 'uri:puerto/nameBaseDatos 
 }
