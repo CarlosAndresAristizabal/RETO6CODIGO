@@ -1,109 +1,96 @@
-const datosModel =require('../model/schema.js')
+const datosModel = require('../model/schema.js')
+const { ObjectId } = require('mongoose').Types;
+
 
 // Mostrar
-const mostrar = async () => {
+module.exports.mostrar = async () => {
     const restaurante = await datosModel.find()
     console.log(restaurante);
 }
-mostrar()
 
 /*********************************** */
 // Crear
-const insertar = async () => {
+module.exports.insertar = async (building, coord, street, zipcode, borough, cuisine, score, comment, name, restaurant_id) => {
     const datos = new datosModel({
         address: {
-            building: 'Calle',
-            coord: [ 80.42153, 40.7643124 ],
-            street: 'los locos',
-            zipcode: '200001',
+            building,
+            coord,
+            street,
+            zipcode,
         },
-        borough: 'Guacoche',
-        cuisine: 'callerapid',
+        borough,
+        cuisine,
         grades: {
             date: new Date(),
-            score: 4,
+            score,
         },
         comments: {
             date: new Date(),
-            comment: 'Comida de mamá',
+            comment,
         },
-        name: 'Comida Rapidas de mamá',
-        restaurant_id: 752140245
+        name,
+        restaurant_id
     })
     const datosNuevos = await datos.save()
-    console.log(datosNuevos);
     console.log('Los datos insertados correctamente');
 }
-insertar()
 /*********************************** */
 //ACTUALIZAR
-const actualizarDatos = async (id) => {
+module.exports.actualizarDatos = async (id) => {
     const datosActual = await datosModel.updateOne({ _id: id },
         {
             $set: {
                 address: {
-                    // building: 'calle',
-                    // coord: [ 2153, 2135431 ],
-                    // street: 'caciques',
-                    // zipcode: '200014',
+                    building: 'calle',
+                    coord: [ 21.53, 21.35431 ],
+                    street: 'caciques',
+                    zipcode: '200014',
                 },
-                // borough: 'Valledupar - Cesar',
-                // cuisine: 'comida rapida',
+                borough: 'Valledupar - Cesar',
+                cuisine: 'comida rapida',
                 name: 'Comida de mamá',
+                grades: {
+                    date: new Date(),
+                    score: 5,
+                },
+                comments: {
+                    date: new Date(),
+                    comment: 'comida sabrosa',
+                },
+                name: 'Uhele Rico',
+                restaurant_id: 123546
             }
         })
-    console.log(datosActual);
     console.log('Los datos estan actualizados');
 }
-actualizarDatos('64ea05e50c518cedebbbf014')
 
 /*********************************** */
 //Eliminar
-const eliminarDatos = async (id) => {
+module.exports.eliminarDatos = async (id) => {
     const datosEliminar = await datosModel.deleteOne({ _id: id })
-    console.log(datosEliminar);
     console.log('Los datos eliminados');
 }
-eliminarDatos('64ea05d6f23e40be4af8d026')
 /*********************************** */
 //Mostrar filtro por nombre
-const mostrarNombre = async () => {
+module.exports.mostrarNombre = async (name) => {
     const restaurante = await datosModel.find({
-        name: 'comidas jj'
-    }, { _id: true, cuisine: true, restaurant_id: true, 'address.street': true });
+        name: name
+
+    }, { _id: false, name: true, borough: true, 'address.building': true, cuisine: true, restaurant_id: true, 'address.street': true });
     console.log(restaurante);
 }
-mostrarNombre()
+
 /*********************************** */
 //Mostrar filtro por cocina
-const mostrarCocina = async () => {
+module.exports.mostrarCocina = async () => {
     const restaurante = await datosModel.find({
         cuisine: 'flaca'
-    }, { _id: true, cuisine: true, restaurant_id: true, 'address.street': true });
+    }, { _id: false, name: true, borough: true, 'address.building': true, cuisine: true, restaurant_id: true, 'address.street': true });
     console.log(restaurante);
 }
-mostrarCocina()
-/**************************************** */
-// filtro de cercania segun locaclizacion
-const buscarLocalizacion = async () => {
-    const cercania = await datosModel.find({
-        "address.coord": {
-            $geoWithin: {
-                $centerSphere: {
-                    type: 'Point',
-                    coord: [
-                        0, 40 ]
-                },
-                $maxDistance: 5000
-            }
-        }
-    })
-    console.log(cercania);
-}
-buscarLocalizacion()
 /******************************/
 //Filtro de ordenamiento por ranking
-const ordenar = async () => {
+module.exports.ordenar = async () => {
     const orden = await datosModel.find({
 
     }, {
@@ -113,10 +100,9 @@ const ordenar = async () => {
     })
     console.log(orden)
 }
-ordenar()
 /*********************************** */
 //Insertar comentarios
-const comentarios = async (id) => {
+module.exports.comentarios = async (id) => {
     const datosActual = await datosModel.updateOne(
         { _id: id },
         {
@@ -131,10 +117,9 @@ const comentarios = async (id) => {
     console.log(datosActual);
     console.log('El comentario insertado');
 }
-comentarios('64ea05e50c518cedebbbf014')
 /*********************************** */
 //añadir puntaje segun id
-const puntaje = async (id) => {
+module.exports.puntaje = async (id) => {
     const datosActual = await datosModel.updateOne(
         { _id: id },
         {
@@ -149,4 +134,20 @@ const puntaje = async (id) => {
     console.log(datosActual);
     console.log('La calificación insertada');
 }
-puntaje('64ea05e50c518cedebbbf014')
+/**************************************** */
+// filtro de cercania segun locaclizacion
+
+module.exports.buscarLocalizacion = async () => {
+    const cercania = await datosModel.aggregate([ {
+        $geoNear: {
+            near: {
+                type: 'Point',
+                coord: [ 0, 40 ]
+            },
+            distanceField: 'distancie',
+            $maxDistance: 5000 * 1000,
+            spherical: true,
+        }
+    } ])
+    console.log(cercania);
+}
