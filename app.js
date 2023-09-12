@@ -26,7 +26,7 @@ app.listen(3000, () => {
 /*************************** */
 
 //Mostraremos todos los datos de la base de datos
-// datosBD.mostrar();
+datosBD.mostrar();
 
 /*************************** */
 //Para insertar sigue el orden delos paramentros =>(building, coord, street, zipcode, borough, cuisine, score, comment, name, restaurant_id), todos los paramentros son tipo string, exento coord que va en un array de tipo numerico y (score y restaurant_id es de tipo numerico).
