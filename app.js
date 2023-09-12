@@ -5,9 +5,9 @@ const app = express();
 const datosBD = require('./controller/controllerRestaurants.js')
 
 //Creación de body html y ubicación
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'));
 
 //Conexion a mongoDB
 const urlConexion = 'mongodb://localhost:27017/restaurantes'
@@ -26,7 +26,7 @@ app.listen(3000, () => {
 /*************************** */
 
 //Mostraremos todos los datos de la base de datos
-datosBD.mostrar();
+// datosBD.mostrar();
 
 /*************************** */
 //Para insertar sigue el orden delos paramentros =>(building, coord, street, zipcode, borough, cuisine, score, comment, name, restaurant_id), todos los paramentros son tipo string, exento coord que va en un array de tipo numerico y (score y restaurant_id es de tipo numerico).
@@ -79,39 +79,39 @@ datosBD.mostrar();
 
 
 // FRONTEND
-// app.post('/add', (req, res) => {
+app.post('/add', (req, res) => {
 
-//     const restaurante = new datosModel({
-//         address: {
-//             building: req.body.building,
-//             coord: [ req.body.coord ],
-//             street: req.body.street,
-//             zipcode: req.body.zipcode,
-//         },
-//         borough: req.body.borough,
-//         cuisine: req.body.cusine,
-//         // schedule: (req.body.scheduleInicio + ' - ' + req.body.schedulefinal),
-//         grades: {
-//             date: req.body.scheduleComment,
-//             score: req.body.grades,
-//         },
-//         comments: {
-//             date: req.body.scheduleComment,
-//             comment: req.body.comments,
-//         },
-//         name: req.body.text,
-//     })
-//     restaurante.save().then(doc => {
-//         console.log('Dato ingresasdo correctamente ...', doc);
-//         res.json({ response: 'success' })
-//     }).catch(err => {
-//         console.log('Error al insertar', err.message); res.json({ response: 'falla' })
-//     })
-// });
+    const restaurante = new datosModel({
+        address: {
+            building: req.body.building,
+            coord: [ req.body.coord ],
+            street: req.body.street,
+            zipcode: req.body.zipcode,
+        },
+        borough: req.body.borough,
+        cuisine: req.body.cusine,
+        // schedule: (req.body.scheduleInicio + ' - ' + req.body.schedulefinal),
+        grades: {
+            date: req.body.scheduleComment,
+            score: req.body.grades,
+        },
+        comments: {
+            date: req.body.scheduleComment,
+            comment: req.body.comments,
+        },
+        name: req.body.text,
+    })
+    restaurante.save().then(doc => {
+        console.log('Dato ingresasdo correctamente ...', doc);
+        res.json({ response: 'success' })
+    }).catch(err => {
+        console.log('Error al insertar', err.message); res.json({ response: 'falla' })
+    })
+});
 
 // Consultar DB
-// app.get('/consultaTodaDB', (req, res) => {
-//     datosModel.find().then(doc => { res.json({ response: 'success', data: doc }) }).catch(err => {
-//         console.log('Error al consultar elementos...', err.message); res.json({ response: 'falla' })
-//     })
-// })
+app.get('/consultaTodaDB', (req, res) => {
+    datosModel.find().then(doc => { res.json({ response: 'success', data: doc }) }).catch(err => {
+        console.log('Error al consultar elementos...', err.message); res.json({ response: 'falla' })
+    })
+})
