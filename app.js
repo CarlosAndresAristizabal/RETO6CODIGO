@@ -53,7 +53,30 @@ app.listen(3000, () => {
 //Filtro por nombre de Cocina
 // datosBD.mostrarCocina('Zona de Carreteras');
 
-datosBD.buscarLocalizacion()
+
+/************************* */
+//Filtro por id de geospacial , encontrando la distancia entre los resturantes
+// datosBD.buscarLocalizacion('64e725b9240b29c3965470fb')
+
+/************************* */
+//Filtro Ordenar por calificación
+// datosBD.ordenar()
+
+// /=================================/
+// /=========== iNSERTAR COMENTARIOS Y CALIFICACION ==============
+
+/************************* */
+//Filtro Ordenar por calificación
+// datosBD.puntaje('64e725b9240b29c3965470fb')
+
+/************************* */
+//Filtro Ordenar por calificación
+// datosBD.comentarios('64e725b9240b29c3965470fb')
+
+
+
+
+
 
 // FRONTEND
 // app.post('/add', (req, res) => {

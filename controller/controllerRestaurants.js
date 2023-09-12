@@ -114,7 +114,6 @@ module.exports.comentarios = async (id) => {
             }
         }
     )
-    console.log(datosActual);
     console.log('El comentario insertado');
 }
 /*********************************** */
@@ -131,23 +130,27 @@ module.exports.puntaje = async (id) => {
             }
         }
     )
-    console.log(datosActual);
     console.log('La calificación insertada');
 }
 /**************************************** */
 // filtro de cercania segun locaclizacion
 
-module.exports.buscarLocalizacion = async () => {
+module.exports.buscarLocalizacion = async (id) => {
+    const posicion = await datosModel.findOne()
+    const lat = posicion.address.coord[ 0 ];
+    const long = posicion.address.coord[ 1 ]
     const cercania = await datosModel.aggregate([ {
         $geoNear: {
             near: {
                 type: 'Point',
-                coord: [ 0, 40 ]
+                coordinates: [ lat, long ]
             },
-            distanceField: 'distancie',
-            $maxDistance: 5000 * 1000,
+            distanceField: 'dist.calculated',
+            $maxDistance: 5,
+            query: { 'address.street': 'caciques' },
             spherical: true,
         }
     } ])
+
     console.log(cercania);
 }
