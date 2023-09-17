@@ -1,8 +1,8 @@
+require('./rutas/rutasRestaurantes.js')(app);
 const express = require('express');
 const bodyParser = require('body-parser')
 const mongoose = require("mongoose");
 const app = express();
-const datosBD = require('./controller/controllerRestaurants.js')
 
 //Creación de body html y ubicación
 app.use(bodyParser.json());
@@ -23,61 +23,9 @@ app.listen(3000, () => {
     console.log('servidor listo...');
 });
 
-/*************************** */
-
-//Mostraremos todos los datos de la base de datos
-// datosBD.mostrar();
-
-/*************************** */
-//Para insertar sigue el orden delos paramentros =>(building, coord, street, zipcode, borough, cuisine, score, comment, name, restaurant_id), todos los paramentros son tipo string, exento coord que va en un array de tipo numerico y (score y restaurant_id es de tipo numerico).
-
-
-// datosBD.insertar('840', [ 72.5254, -25.25052 ], 'Los Caciques Upar', '20008', 'Valledupar', 'Zona de Carreterras', 4, 'La comida mas rapida y rica', 'comidasRapidas de JOE', 14253);
-
-/************************* */
-//Antes de ejecutar la actualización de datos ve a controller y modifica las claves a modificar y luego llama
-// datosBD.actualizarDatos('64e92da34d0aee2e6abb35a4')
-
-/************************* */
-//Puedes elilminar un documento por medio del ID
-// datosBD.eliminarDatos('64e92da34d0aee2e6abb35a4')
-
-// /=================================/
-// /============FILTROS==============/
-
-/************************* */
-//Filtro por nombre de restaurante
-// datosBD.mostrarNombre('Frutas');
-
-/************************* */
-//Filtro por nombre de Cocina
-// datosBD.mostrarCocina('Zona de Carreteras');
-
-
-/************************* */
-//Filtro por id de geospacial , encontrando la distancia entre los resturantes
-// datosBD.buscarLocalizacion('64e725b9240b29c3965470fb')
-
-/************************* */
-//Filtro Ordenar por calificación
-// datosBD.ordenar()
-
-// /=================================/
-// /=========== iNSERTAR COMENTARIOS Y CALIFICACION ==============
-
-/************************* */
-//Filtro Ordenar por calificación
-// datosBD.puntaje('64e725b9240b29c3965470fb')
-
-/************************* */
-//Filtro Ordenar por calificación
-// datosBD.comentarios('64e725b9240b29c3965470fb')
-
-
-
-
-
-
+app.get("/", (res, req) => {
+    res.json({ 'message': 'Bienvenidoa tattler API' })
+})
 // FRONTEND
 app.post('/add', (req, res) => {
 

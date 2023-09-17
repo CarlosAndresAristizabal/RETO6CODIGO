@@ -31,3 +31,5 @@ const datosSchema = mongoose.Schema({
 const datosModel = mongoose.model('lugares', datosSchema);
 module.exports = datosModel;
 
+//indexes 
+datosSchema.index({ 'address.coord': '2dsphere' });
