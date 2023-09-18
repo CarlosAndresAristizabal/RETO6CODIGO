@@ -1,4 +1,4 @@
-require('.app/rutas/rutasRestaurantes.js')(app);
+require('./app/rutas/rutasRestaurantes.js');
 const express = require('express');
 const bodyParser = require('body-parser')
 const mongoose = require("mongoose");
