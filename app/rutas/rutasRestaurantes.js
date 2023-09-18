@@ -15,9 +15,6 @@ module.exports = app => {
     // Mostrar por cuisine
     router.get("/cuisine", restaurante.mostrarCocina);
 
-    // Retrieve Restaurant by name and cuisine
-    router.get("/cuisine", restaurante.findByNameAndCuisine);
-
     // Actualizar por ID
     router.put("/:id", restaurante.actualizarDatos);
 
