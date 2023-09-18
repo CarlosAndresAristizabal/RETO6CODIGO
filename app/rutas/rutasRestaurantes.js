@@ -1,5 +1,5 @@
 module.exports = app => {
-    const restaurante = require("../controller/controllerRestaurants");
+    const restaurante = require("../app/controller/controllerRestaurants");
 
     var router = require("express").Router();
 
