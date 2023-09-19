@@ -25,7 +25,6 @@ router.post("/Crear", async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-
 }
 );
 
@@ -51,6 +50,7 @@ router.post("/mostrarNombre", async (req, res) => {
     }
 });
 
+//Actualizar por ID
 router.post("/actualizarDatos", async (req, res) => {
     try {
         const sitio = req.body
@@ -60,25 +60,50 @@ router.post("/actualizarDatos", async (req, res) => {
         console.log(error);
     }
 })
-/*
-// Mostrar por nombre de restaurante
- 
-// Mostrar por cuisine
-router.get("/cuisine", restaurante.mostrarCocina());
 
-// Busqueda Geopatial
-router.get("/:id", restaurante.buscarLocalizacion());
- 
-// Ordenar por calificación
-router.get("/", restaurante.ordenar());
- 
-//Insertar comentario por id
-router.post("/:id", restaurante.puntaje());
- 
-//insertar comentario segun su id
-router.post("/:id", restaurante.comentarios())
- 
-// app.use("/api/restaurante", router);*/
+// Busqueda por Cocina
+router.post("/mostrarCocina", async (req, res) => {
+    try {
+        const sitio = req.body
+        const nombre = await restaurante.mostrarCocina(sitio)
+        res.json({ message: nombre })
+    } catch (error) {
+        console.log(error);
+    }
+});
 
+//Busqeuda de distancia geopatial
+router.post("/distancia", async (req, res) => {
+    try {
+        const sitio = req.body
+        const nombre = await restaurante.mostrarDistancia(sitio)
+        res.json({ message: 'Busqueda realizada' })
+
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+//insertar comentario por ID
+router.post("/insertarComentario", async (req, res) => {
+    try {
+        const sitio = req.body
+        const datos = await restaurante.insertarComentario(sitio)
+        res.json({ message: 'Comentario insertado correctamente' })
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+//insertar calificación por ID
+router.post("/insertarCalificacion", async (req, res) => {
+    try {
+        const sitio = req.body
+        const datos = await restaurante.insetarCalificacion(sitio)
+        res.json({ message: 'Calificación insertado correctamente' })
+    } catch (error) {
+        console.log(error);
+    }
+})
 module.exports = router;
 

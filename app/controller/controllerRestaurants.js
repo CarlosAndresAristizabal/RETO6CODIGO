@@ -14,7 +14,6 @@ module.exports.mostrar = async (req, res) => {
     }
 }
 
-
 /*********************************** */
 // Crear
 module.exports.insertar = async (sitioData) => {
@@ -92,22 +91,23 @@ module.exports.actualizarDatos = async (id) => {
                     date: new Date(),
                     comment: 'comida sabrosa',
                 },
-                name: 'Uhele Rico',
+                name: 'Uhele Rico y sabroso',
             }
         })
     console.log('Los datos estan actualizados');
 }
 
-
-
-
-/*********************************** *
+/*********************************** */
 //Mostrar filtro por cocina
-module.exports.mostrarCocina = async () => {
+module.exports.mostrarCocina = async (cuisine) => {
+    const body = cuisine
     const restaurante = await datosModel.find({
-        cuisine: 'flaca'
-    }, { _id: false, name: true, borough: true, 'address.building': true, cuisine: true, restaurant_id: true, 'address.street': true });
-    console.log(restaurante);
+        cuisine: body.cuisine
+
+    });
+    return restaurante
+
+    // console.log(restaurante);
 }
 /******************************
 //Filtro de ordenamiento por ranking
@@ -121,45 +121,47 @@ module.exports.ordenar = async () => {
     })
     console.log(orden)
 }
-/*********************************** *
+/*********************************** */
 //Insertar comentarios
-module.exports.comentarios = async (id) => {
-    const datosActual = await datosModel.updateOne(
-        { _id: id },
+module.exports.insertarComentario = async (id) => {
+    const body = id
+    const datosActual = await datosModel.updateOne({ _id: body },
         {
             $push: {
                 comments: {
                     date: new Date(),
-                    comment: 'sabrosa la comida de maá',
+                    comment: 'La mejor comida',
                 },
             }
         }
     )
     console.log('El comentario insertado');
 }
-/*********************************** *
-//añadir puntaje segun id
-module.exports.puntaje = async (id) => {
+/*********************************** */
+//añadir calificaion segun id
+module.exports.insetarCalificacion = async (id) => {
+    const body = id
     const datosActual = await datosModel.updateOne(
-        { _id: id },
+        { _id: body },
         {
             $push: {
                 grades: {
                     date: new Date(),
-                    score: 5,
+                    score: 3,
                 }
             }
         }
     )
     console.log('La calificación insertada');
 }
-/**************************************** *
+
+/**************************************** */
 // filtro de cercania segun locaclizacion
 
-module.exports.buscarLocalizacion = async (id) => {
-    const posicion = await datosModel.findOne()
-    const lat = posicion.address.coord[ 0 ];
-    const long = posicion.address.coord[ 1 ]
+module.exports.mostrarDistancia = async (id) => {
+    const posicion = await datosModel.findById(id)
+    const lat = posicion.address.coord[ 1 ];
+    const long = posicion.address.coord[ 0 ];
     const cercania = await datosModel.aggregate([ {
         $geoNear: {
             near: {
@@ -167,11 +169,11 @@ module.exports.buscarLocalizacion = async (id) => {
                 coordinates: [ lat, long ]
             },
             distanceField: 'dist.calculated',
-            $maxDistance: 5,
+            $maxDistance: 5000,
             query: { 'address.street': 'caciques' },
             spherical: true,
         }
     } ])
 
     console.log(cercania);
-}*/
+}
