@@ -28,19 +28,8 @@ router.post("/Crear", async (req, res) => {
 
 }
 );
-// Busqueda por nombre
-router.post("/mostrarNombre", async (req, res) => {
-    try {
-        const sitio = req.body
-        // console.log(sitio)
-        const nombre = await restaurante.mostrarNombre(sitio)
-        res.json({ message: nombre })
-    } catch (error) {
-        console.log(error);
-    }
-});
 
-// Eliminar por ID
+// Eliminar por nombre
 router.post("/eliminarNombre", async (req, res) => {
     try {
         const sitio = req.body
@@ -51,17 +40,32 @@ router.post("/eliminarNombre", async (req, res) => {
     }
 });
 
+// Busqueda por nombre
+router.post("/mostrarNombre", async (req, res) => {
+    try {
+        const sitio = req.body
+        const nombre = await restaurante.mostrarNombre(sitio)
+        res.json({ message: nombre })
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.post("/actualizarDatos", async (req, res) => {
+    try {
+        const sitio = req.body
+        const datos = await restaurante.actualizarDatos(sitio)
+        res.json({ message: 'datos actualizados' })
+    } catch (error) {
+        console.log(error);
+    }
+})
 /*
 // Mostrar por nombre de restaurante
  
 // Mostrar por cuisine
 router.get("/cuisine", restaurante.mostrarCocina());
- 
 
- 
-// Eliminar por ID
-router.delete("/:id", restaurante.eliminarDatos());
- 
 // Busqueda Geopatial
 router.get("/:id", restaurante.buscarLocalizacion());
  

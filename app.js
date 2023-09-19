@@ -23,9 +23,5 @@ app.listen(puerto, () => {
     console.log('servidor listo...');
 });
 
-app.get("/", (req, res) => {
-    res.json({ 'message': 'Bienvenido a tattler API' })
-})
-
 app.use('/', require('./app/router/rutasRestaurants'));
 

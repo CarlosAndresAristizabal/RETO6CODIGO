@@ -68,11 +68,11 @@ module.exports.eliminarDatos = async (name) => {
     }
 };
 
-
-/*********************************** *
+/*********************************** */
 //ACTUALIZAR
 module.exports.actualizarDatos = async (id) => {
-    const datosActual = await datosModel.updateOne({ _id: id },
+    const body = id
+    const datosActual = await datosModel.updateOne({ _id: body },
         {
             $set: {
                 address: {
@@ -93,7 +93,6 @@ module.exports.actualizarDatos = async (id) => {
                     comment: 'comida sabrosa',
                 },
                 name: 'Uhele Rico',
-                restaurant_id: 123546
             }
         })
     console.log('Los datos estan actualizados');

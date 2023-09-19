@@ -16,12 +16,22 @@
   </head>
   <body>
     <header class="container bg-info text-center p-5">
-      <h1 class="text-uppercase">Crear registro</h1>
+      <h1 class="text-uppercase">Actualizar registro</h1>
     </header>
 
     <main class="container text-center">
       <div id="container">
-        <form action="/mostrarNombre" method="post" class="pt-5">
+        <form action="/actualizarDatos" method="post" class="pt-5">
+          <input
+            type="text"
+            name="_id"
+            id="_id"
+            autocomplete="off"
+            placeholder="Id Restaurante"
+            class="rounded-3 form-control my-5"
+          />
+          <button type="submit" class="btn btn-info p-2">Busqueda</button>
+
           <input
             type="text"
             name="name"
@@ -30,18 +40,7 @@
             placeholder="Nuevo Restaurante"
             class="rounded-3 form-control my-5"
           />
-          <a href="busquedaNombre.html" class="btn btn-info p-2">
-            Busqueda por nombre
-          </a>
 
-          <!-- <input
-            type="text"
-            name="restaurant_id"
-            id="restaurant_id"
-            autocomplete="off"
-            placeholder="Id Restaurante"
-            class="rounded-3 form-control my-5"
-          /> -->
           <input
             type="text"
             name="building"
@@ -133,18 +132,9 @@
             placeholder="comentario"
             class="rounded-3 form-control my-5"
           /><br /><br />
-          <button type="submit" class="btn btn-success btn-block p-2" id="btn">
-            Insertar
-          </button>
-          <a href="/mostrarDB" class="btn btn-info p-2"
-            >Mostrar Base de datos</a
-          >
-          <a href="eliminarNombre.html" class="btn btn-info p-2"
-            >Eliminar datos</a
-          >
-          <a href="actualizarDatos.html" class="btn btn-info p-2"
-            >Actualizar datos</a
-          >
+          <!-- <button type="submit" class="btn btn-success btn-block p-2" id="btn">
+            Actualizar
+          </button> -->
         </form>
       </div>
     </main>
@@ -162,7 +152,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="../app.js"></script>
-    <script>
+    <!-- <script>
       let x = document.getElementById('demo1')
       let y = document.getElementById('demo2')
       let localizacion = document.getElementById('coord')
@@ -185,6 +175,6 @@
 
         localizacion.value = coord2 + ',' + coord1
       }
-    </script>
+    </script> -->
   </body>
 </html>
