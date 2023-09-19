@@ -16,30 +16,39 @@
   </head>
   <body>
     <header class="container bg-info text-center p-5">
-      <h1 class="text-uppercase">Bienvenidos a Tattler</h1>
+      <h1 class="text-uppercase">Crear registro</h1>
     </header>
 
     <main class="container text-center">
-      <div id="main-container">
-        <form action="/add" method="post" class="pt-5">
+      <div id="container">
+        <form action="/mostrarNombre" method="post" class="pt-5">
           <input
             type="text"
-            name="text"
+            name="name"
             id="nombre"
             autocomplete="off"
             placeholder="Nuevo Restaurante"
-            class="rounded-3"
+            class="rounded-3 form-control my-5"
           />
+          <a href="busquedaNombre.html" class="btn btn-info p-2">
+            Busqueda por nombre
+          </a>
 
-          <br />
-          <br /><br />
+          <!-- <input
+            type="text"
+            name="restaurant_id"
+            id="restaurant_id"
+            autocomplete="off"
+            placeholder="Id Restaurante"
+            class="rounded-3 form-control my-5"
+          /> -->
           <input
-            type="number"
+            type="text"
             name="building"
             id="building"
             autocomplete="off"
             placeholder="Direccción"
-            class="rounded-3"
+            class="rounded-3 form-control my-5"
           />
           <label
             onclick="getLocation()"
@@ -55,8 +64,8 @@
             name="coord"
             id="coord"
             autocomplete="off"
-            placeholder="Coordenadas"
-            class="rounded-3"
+            placeholder="Ubicación"
+            class="rounded-3 form-control my-5"
           />
           <input
             type="text"
@@ -64,7 +73,7 @@
             id="street"
             autocomplete="off"
             placeholder="street"
-            class="rounded-3"
+            class="rounded-3 form-control my-5"
           />
           <input
             type="text"
@@ -72,7 +81,7 @@
             id="zipcode"
             autocomplete="off"
             placeholder="codigo postal"
-            class="rounded-3"
+            class="rounded-3 form-control my-5"
           />
 
           <input
@@ -81,50 +90,16 @@
             id="borough"
             autocomplete="off"
             placeholder="ciudad"
-            class="rounded-3"
+            class="rounded-3 form-control my-5"
           />
-          <br /><br /><br />
+          <br />
           <input
             type="text"
-            name="cusine"
+            name="cuisine"
             id="cuisine"
             autocomplete="off"
             placeholder="cocina"
-            class="rounded-3"
-          />
-          <!-- <input
-            type="text"
-            name="image"
-            id="image"
-            autocomplete="off"
-            class="rounded-3"
-            placeholder="URL image"
-          /> -->
-          <!-- <input
-            type="time"
-            name="scheduleInicio"
-            id="schedule"
-            autocomplete="off"
-            placeholder="Horario"
-            class="rounded-3"
-          />
-          <input
-            type="time"
-            name="schedulefinal"
-            id="schedulefinal"
-            autocomplete="off"
-            placeholder="Horario"
-            class="rounded-3"
-          /> -->
-          <input
-            type="number"
-            name="grades"
-            id="grades"
-            autocomplete="off"
-            placeholder="calificacion"
-            class="rounded-3"
-            min="1"
-            max="5"
+            class="rounded-3 form-control my-5"
           />
           <input
             type="text"
@@ -133,36 +108,41 @@
             class="rounded-3"
             style="display: none"
           />
-          <p id="scheduleComment" style="display: none"></p>
           <input
             type="text"
-            name="comments"
-            id="comments"
+            name="score"
+            id="score"
+            autocomplete="off"
+            placeholder="calificacion"
+            class="rounded-3 form-control my-5"
+            min="1"
+            max="5"
+          />
+          <input
+            type="text"
+            name="scheduleComment2"
+            id="tiempo2"
+            class="rounded-3"
+            style="display: none"
+          />
+          <input
+            type="text"
+            name="comment"
+            id="comment"
             autocomplete="off"
             placeholder="comentario"
-            class="rounded-3"
+            class="rounded-3 form-control my-5"
           /><br /><br />
-          <button
-            type="submit"
-            place-holder="Guardar"
-            class="btn btn-primary"
-            id="btn"
-          >
-            Guardar
+          <button type="submit" class="btn btn-success btn-block p-2" id="btn">
+            Insertar
           </button>
-          <button
-            type="submit"
-            place-holder="Actualizar"
-            class="btn btn-primary"
-            id="btnActua"
-            formmethod="post"
-            action="/actualizar"
+          <a href="/mostrarDB" class="btn btn-info p-2"
+            >Mostrar Base de datos</a
           >
-            <a href="localhost:3000/actullizar"></a>
-            Actualizar
-          </button>
+          <a href="eliminarNombre.html" class="btn btn-info p-2"
+            >Eliminar datos</a
+          >
         </form>
-        <div id="todos"></div>
       </div>
     </main>
     <script src="js/main.js"></script>
@@ -180,12 +160,13 @@
     ></script>
     <script src="../app.js"></script>
     <script>
-      var x = document.getElementById('demo1')
-      var y = document.getElementById('demo2')
-      var localizacion = document.getElementById('coord')
-      var tiempo = document.getElementById('tiempo')
-
+      let x = document.getElementById('demo1')
+      let y = document.getElementById('demo2')
+      let localizacion = document.getElementById('coord')
+      let tiempo = document.getElementById('tiempo')
+      let tiempo2 = document.getElementById('tiempo2')
       tiempo.value = Date()
+      tiempo2.value = Date()
 
       function getLocation() {
         if (navigator.geolocation) {
@@ -196,11 +177,10 @@
       }
 
       function showPosition(position) {
-        localizacion.value =
-          (x.innerHTML = position.coords.latitude) +
-          ' Lat. ' +
-          (y.innerHTML = position.coords.longitude) +
-          ' Long'
+        coord1 = x.innerHTML = position.coords.latitude
+        coord2 = y.innerHTML = position.coords.longitude
+
+        localizacion.value = coord2 + ',' + coord1
       }
     </script>
   </body>

@@ -1,40 +1,75 @@
-const datosModel = require('../model/schema.js')
-const { ObjectId } = require('mongoose').Types;
+const datosModel = require('../model/schema')
+const model = datosModel
+const bodyParser = require('body-parser')
 
 
 // Mostrar
-module.exports.mostrar = async () => {
-    const restaurante = await datosModel.find()
-    console.log(restaurante);
+module.exports.mostrar = async (req, res) => {
+    try {
+        const restaurante = await datosModel.find()
+        return restaurante
+
+    } catch (error) {
+        console.log(error);
+    }
 }
+
 
 /*********************************** */
 // Crear
-module.exports.insertar = async (building, coord, street, zipcode, borough, cuisine, score, comment, name, restaurant_id) => {
+module.exports.insertar = async (sitioData) => {
+    const body = sitioData
+    const str = body.coord;
+    const coordenadas = str.split(',').map(Number);
     const datos = new datosModel({
         address: {
-            building,
-            coord,
-            street,
-            zipcode,
+            building: body.building,
+            coord: (coordenadas),
+            street: body.street,
+            zipcode: body.zipcode,
         },
-        borough,
-        cuisine,
+        borough: body.borough,
+        cuisine: body.cuisine,
         grades: {
             date: new Date(),
-            score,
+            score: body.score,
         },
         comments: {
             date: new Date(),
-            comment,
+            comment: body.comment,
         },
-        name,
-        restaurant_id
+        name: body.name,
+        restaurant_id: parseInt(body.restaurant_id),
     })
     const datosNuevos = await datos.save()
-    console.log('Los datos insertados correctamente');
+    return datosNuevos;
+    console.log('Los datos insertados correctamente' + datosNuevos);
+}
+
+/*********************************** */
+//Mostrar filtro por nombre
+module.exports.mostrarNombre = async (name) => {
+    const body = name
+    const nombre = await datosModel.findOne({
+        name: body.name
+    });
+    return nombre
 }
 /*********************************** */
+//Eliminar
+module.exports.eliminarDatos = async (name) => {
+
+    try {
+        const body = name
+        const datos = await datosModel.findOneAndDelete({ name: body.name })
+        return datos
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+/*********************************** *
 //ACTUALIZAR
 module.exports.actualizarDatos = async (id) => {
     const datosActual = await datosModel.updateOne({ _id: id },
@@ -64,23 +99,10 @@ module.exports.actualizarDatos = async (id) => {
     console.log('Los datos estan actualizados');
 }
 
-/*********************************** */
-//Eliminar
-module.exports.eliminarDatos = async (id) => {
-    const datosEliminar = await datosModel.deleteOne({ _id: id })
-    console.log('Los datos eliminados');
-}
-/*********************************** */
-//Mostrar filtro por nombre
-module.exports.mostrarNombre = async (name) => {
-    const restaurante = await datosModel.find({
-        name: name
 
-    }, { _id: false, name: true, borough: true, 'address.building': true, cuisine: true, restaurant_id: true, 'address.street': true });
-    console.log(restaurante);
-}
 
-/*********************************** */
+
+/*********************************** *
 //Mostrar filtro por cocina
 module.exports.mostrarCocina = async () => {
     const restaurante = await datosModel.find({
@@ -88,7 +110,7 @@ module.exports.mostrarCocina = async () => {
     }, { _id: false, name: true, borough: true, 'address.building': true, cuisine: true, restaurant_id: true, 'address.street': true });
     console.log(restaurante);
 }
-/******************************/
+/******************************
 //Filtro de ordenamiento por ranking
 module.exports.ordenar = async () => {
     const orden = await datosModel.find({
@@ -100,7 +122,7 @@ module.exports.ordenar = async () => {
     })
     console.log(orden)
 }
-/*********************************** */
+/*********************************** *
 //Insertar comentarios
 module.exports.comentarios = async (id) => {
     const datosActual = await datosModel.updateOne(
@@ -116,7 +138,7 @@ module.exports.comentarios = async (id) => {
     )
     console.log('El comentario insertado');
 }
-/*********************************** */
+/*********************************** *
 //añadir puntaje segun id
 module.exports.puntaje = async (id) => {
     const datosActual = await datosModel.updateOne(
@@ -132,7 +154,7 @@ module.exports.puntaje = async (id) => {
     )
     console.log('La calificación insertada');
 }
-/**************************************** */
+/**************************************** *
 // filtro de cercania segun locaclizacion
 
 module.exports.buscarLocalizacion = async (id) => {
@@ -153,4 +175,4 @@ module.exports.buscarLocalizacion = async (id) => {
     } ])
 
     console.log(cercania);
-}
+}*/

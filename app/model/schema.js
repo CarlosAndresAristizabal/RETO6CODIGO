@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-
+const schema = mongoose.Schema;
 
 //Creacion  del schema de la DB
-const datosSchema = mongoose.Schema({
+const datosSchema = new schema({
     address: {
         building: { type: String },
         type: {
@@ -24,7 +24,6 @@ const datosSchema = mongoose.Schema({
         comment: { type: String },
     } ],
     name: { type: String, required: true },
-    restaurant_id: { type: Number, required: true }
 }, { versionKey: false });
 
 //Incorporar schema al modelo
